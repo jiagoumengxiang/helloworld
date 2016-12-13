@@ -3,18 +3,22 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.2.RELEASE")
-        classpath('se.transmode.gradle:gradle-docker:1.2')
     }
 }
 
 apply plugin: 'java'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'docker'
+apply plugin: 'groovy'
 
 jar {
-    baseName = 'example-springboot'
+    baseName = 'example-helloworld'
     version = '1.0.0'
+    manifest {
+        attributes(
+            "Implementation-Title": "Hello World Example",
+            "Implementation-Version": 1.0,
+            "Main-Class": "com.darinbuhr.example.helloworld.HelloWorldApplication"
+        )
+    }
 }
 
 repositories {
@@ -25,22 +29,11 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-web")
-
-    // Monitoring
-    compile("org.springframework.boot:spring-boot-starter-actuator")
-
-    testCompile("org.springframework.boot:spring-boot-starter-test")
-}
-
-task buildDocker(type: Docker, dependsOn: build) {
-    push = false
-    applicationName = jar.baseName
-    dockerfile = file('src/main/docker/Dockerfile')
-    doFirst {
-        copy {
-            from jar
-            into stageDir
-        }
-    }
+    compile(
+    )
+    testCompile(
+        'junit:junit:4.12',
+        'org.codehaus.groovy:groovy-all:2.4.7',
+        'org.spockframework:spock-core:1.0-groovy-2.4'
+    )
 }
