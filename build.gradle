@@ -8,6 +8,7 @@ buildscript {
 
 apply plugin: 'java'
 apply plugin: 'groovy'
+apply plugin: 'application'
 
 jar {
     baseName = 'example-helloworld'
@@ -37,3 +38,5 @@ dependencies {
         'org.spockframework:spock-core:1.0-groovy-2.4'
     )
 }
+
+mainClassName = "com.darinbuhr.example.helloworld.HelloWorldApplication"
